@@ -19,11 +19,12 @@ public:
         int m = 1000000007;
         unordered_map<int,int>mp;
         for(int i = 0 ; i < n ; i++){
+            int diff= nums[i] - rev(nums[i]);
             
-            if(mp.find(nums[i] - rev(nums[i])) != mp.end()){
-                count = (count%m + (mp[nums[i] - rev(nums[i])])%m) % m ;
+            if(mp.find(diff) != mp.end()){
+                count = (count%m + mp[diff]%m) % m ;
             }
-            mp[nums[i] - rev(nums[i])]++;
+            mp[diff]++;
             
         }
         return count ;
