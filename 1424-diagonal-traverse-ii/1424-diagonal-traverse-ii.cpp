@@ -1,25 +1,23 @@
-#include<bits/stdc++.h>
-
 class Solution {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
-        unordered_map<int,vector<int>>groups;
-        
-        for(int row = nums.size()-1 ; row >= 0 ; row--){
-            for(int col = 0 ; col < nums[row].size() ; col++){
-                int diagonal = row + col ;
-                groups[diagonal].push_back(nums[row][col]);
-            }
-        }
-        
+        queue<pair<int,int>>q;
+        q.push({0,0});
         vector<int>ans;
-        int curr = 0 ;
         
-        while(groups.find(curr) != groups.end()){
-            for(int num : groups[curr]){
-                ans.push_back(num);
+        while(!q.empty()){
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            ans.push_back(nums[row][col]);
+            
+            if(col == 0 && row+1 < nums.size()){
+                q.push({row+1,col});
             }
-            curr++;
+            
+            if(col+1 < nums[row].size()){
+                q.push({row,col+1});
+            }
         }
         return ans;
     }
